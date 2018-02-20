@@ -24,6 +24,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       ## Privelged user?
       t.boolean :admin, default: false
 
+      ## Account status (active/inactive/suspended)
+      t.string :account_status, default: 'active'
+
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at
