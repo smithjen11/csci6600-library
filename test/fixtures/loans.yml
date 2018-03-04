@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book: one
+  user: one
+  date_borrowed: 2018-03-04 10:49:42
+  due_date: 2018-03-04 10:49:42
+  date_returned: 2018-03-04 10:49:42
+  renewed_count: 1
+  overdue: false
+  fine: 9.99
+  fine_paid_date: 2018-03-04 10:49:42
+
+two:
+  book: two
+  user: two
+  date_borrowed: 2018-03-04 10:49:42
+  due_date: 2018-03-04 10:49:42
+  date_returned: 2018-03-04 10:49:42
+  renewed_count: 1
+  overdue: false
+  fine: 9.99
+  fine_paid_date: 2018-03-04 10:49:42

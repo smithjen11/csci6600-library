@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Book:</strong>
+  <%= @loan.book %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @loan.user %>
+</p>
+
+<p>
+  <strong>Date borrowed:</strong>
+  <%= @loan.date_borrowed %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @loan.due_date %>
+</p>
+
+<p>
+  <strong>Date returned:</strong>
+  <%= @loan.date_returned %>
+</p>
+
+<p>
+  <strong>Renewed count:</strong>
+  <%= @loan.renewed_count %>
+</p>
+
+<p>
+  <strong>Overdue:</strong>
+  <%= @loan.overdue %>
+</p>
+
+<p>
+  <strong>Fine:</strong>
+  <%= @loan.fine %>
+</p>
+
+<p>
+  <strong>Fine paid date:</strong>
+  <%= @loan.fine_paid_date %>
+</p>
+
+<%= link_to 'Edit', edit_loan_path(@loan) %> |
+<%= link_to 'Back', loans_path %>
