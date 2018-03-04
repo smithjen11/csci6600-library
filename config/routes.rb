@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :holds
   resources :loans
   resources :books
   devise_for :users

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Book:</strong>
+  <%= @hold.book %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @hold.user %>
+</p>
+
+<p>
+  <strong>Request date:</strong>
+  <%= @hold.request_date %>
+</p>
+
+<p>
+  <strong>Release date:</strong>
+  <%= @hold.release_date %>
+</p>
+
+<%= link_to 'Edit', edit_hold_path(@hold) %> |
+<%= link_to 'Back', holds_path %>
