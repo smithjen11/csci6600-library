@@ -1,74 +1,64 @@
-<p id="notice"><%= notice %></p>
+<div class="container pad-10">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+  <h2>
+    <%= @book.title %>
+  </h2>
 
-<p>
-  <strong>Author last name:</strong>
-  <%= @book.author_last_name %>
-</p>
+  <%= image_tag @book.image_url %>
 
-<p>
-  <strong>Author first name:</strong>
-  <%= @book.author_first_name %>
-</p>
+  <table class="table table-bordered table-sm">
+    <tr>
+      <th class="thead-light">Title:</th>
+      <td><%= @book.title %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Author</th>
+      <td><%= @book.author_last_name %>, <%= @book.author_first_name %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">ISBN</th>
+      <td><%= @book.isbn %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Publication Year</th>
+      <td><%= @book.publish_year %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Genre</th>
+      <td><%= @book.genre %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Reading Level</th>
+      <td><%= @book.reading_level %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Subject</th>
+      <td><%= @book.subject %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Language</th>
+      <td><%= @book.language %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Length</th>
+      <td><%= @book.length %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Material Type</th>
+      <td><%= @book.material_type %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Series</th>
+      <td><%= @book.series %></td>
+    </tr>
+    <tr>
+      <th class="thead-light">Series Number</th>
+      <td><%= @book.series_number %></td>
+    </tr>
+  </table>
 
-<p>
-  <strong>Isbn:</strong>
-  <%= @book.isbn %>
-</p>
+  <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-primary' %> |
+  <%= link_to 'Back', books_path, class: 'btn btn-primary' %>
 
-<p>
-  <strong>Publish year:</strong>
-  <%= @book.publish_year %>
-</p>
-
-<p>
-  <strong>Genre:</strong>
-  <%= @book.genre %>
-</p>
-
-<p>
-  <strong>Reading level:</strong>
-  <%= @book.reading_level %>
-</p>
-
-<p>
-  <strong>Subject:</strong>
-  <%= @book.subject %>
-</p>
-
-<p>
-  <strong>Language:</strong>
-  <%= @book.language %>
-</p>
-
-<p>
-  <strong>Length:</strong>
-  <%= @book.length %>
-</p>
-
-<p>
-  <strong>Material type:</strong>
-  <%= @book.material_type %>
-</p>
-
-<p>
-  <strong>Series:</strong>
-  <%= @book.series %>
-</p>
-
-<p>
-  <strong>Series number:</strong>
-  <%= @book.series_number %>
-</p>
-
-<p>
-  <strong>Image url:</strong>
-  <%= @book.image_url %>
-</p>
-
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+</div>
