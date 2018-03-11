@@ -8,4 +8,13 @@
   <a href="<%= new_user_session_path %>" class="btn btn-primary">Login</a>
   <a href="<%= holds_path %>" class="btn btn-primary">Holds</a>
   <a href="<%= loans_path %>" class="btn btn-primary">Loans</a>
+
+  <div class="input-group">
+  	<%= form_tag search_query_path, method: 'post', class: 'form-inline' do %>
+  	<%= text_field_tag :term, 'Search term' %>
+  	<div class="input-group-append">
+  		<%= select_tag :type, options_for_select([['Title', 'title'], ['Author', 'author']]), class: 'btn dropdown-toggle' %>
+  	</div>
+  	<% end %>
+  </div>
 </div>

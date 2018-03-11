@@ -61,6 +61,10 @@ class BooksController < ApplicationController
     end
   end
 
+  def search
+    @books = Book.new.search(search_params[:term], search_params[:type])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -70,5 +74,9 @@ class BooksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:title, :author_last_name, :author_first_name, :isbn, :publish_year, :genre, :reading_level, :subject, :language, :length, :material_type, :series, :series_number, :image_url)
+    end
+
+    def search_params
+      params.permit(:term, :type)
     end
 end

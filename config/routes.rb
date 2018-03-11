@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'books/search', to: 'books#search', as: 'search'
+  post 'books/search', to: 'books#search', as: 'search_query'
+
   resources :holds
   resources :loans
   resources :books
