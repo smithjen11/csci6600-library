@@ -1,8 +1,9 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
 <h1>Loans</h1>
 
-<table>
+<table class="datatable">
   <thead>
     <tr>
       <th>Book</th>
@@ -14,7 +15,9 @@
       <th>Overdue</th>
       <th>Fine</th>
       <th>Fine paid date</th>
-      <th colspan="3"></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -41,3 +44,4 @@
 <br>
 
 <%= link_to 'New Loan', new_loan_path %>
+</div>
