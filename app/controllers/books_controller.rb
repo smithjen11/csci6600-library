@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   # GET /books
   def index
     @books = Book.all
+    @categories = Book.select(:genre).group(:genre)
   end
 
   # GET /books/1
@@ -53,6 +54,7 @@ class BooksController < ApplicationController
 
   def search
     @books = Book.new.search(search_params[:term], search_params[:type])
+    @search_term = search_params[:term]
   end
 
   private
