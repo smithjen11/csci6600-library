@@ -1,3 +1,4 @@
+<div class="container pad-10">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -20,5 +21,6 @@
   <%= @hold.release_date %>
 </p>
 
-<%= link_to 'Edit', edit_hold_path(@hold) %> |
-<%= link_to 'Back', holds_path %>
+<%= link_to 'Edit', edit_hold_path(@hold), class: 'btn btn-primary' %> |
+<%= link_to 'Back', holds_path, class: 'btn btn-primary' %>
+</div>

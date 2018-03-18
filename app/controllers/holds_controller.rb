@@ -13,6 +13,7 @@ class HoldsController < ApplicationController
   # GET /holds/new
   def new
     @hold = Hold.new
+    @books = Book.all
   end
 
   # GET /holds/1/edit

@@ -1,4 +1,4 @@
-<%= form_for(hold) do |f| %>
+<%= form_for(hold, html: {class: 'pad-10'}) do |f| %>
   <% if hold.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(hold.errors.count, "error") %> prohibited this hold from being saved:</h2>
@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :book_id %>
-    <%= f.text_field :book_id %>
+    <%= f.select :book_id, options_from_collection_for_select(@books, 'id', 'title'), class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
+    <%= f.text_field :user_id, value: User.first.id, class: 'form-control', readonly: true %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :request_date %>
-    <%= f.datetime_select :request_date %>
+    <%= f.datetime_select :request_date, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :release_date %>
-    <%= f.datetime_select :release_date %>
+    <%= f.datetime_select :release_date, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

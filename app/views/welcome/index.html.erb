@@ -9,7 +9,7 @@
   <a href="<%= holds_path %>" class="btn btn-primary">Holds</a>
   <a href="<%= loans_path %>" class="btn btn-primary">Loans</a>
 
-  <div class="input-group">
+  <div class="input-group pad-10">
   	<%= form_tag search_query_path, method: 'post', class: 'form-inline' do %>
   	<%= text_field_tag :term, 'Search term' %>
   	<div class="input-group-append">
