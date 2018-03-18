@@ -1,4 +1,4 @@
-<%= form_for(loan) do |f| %>
+<%= form_for(loan, html: {class: 'pad-10'}) do |f| %>
   <% if loan.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(loan.errors.count, "error") %> prohibited this loan from being saved:</h2>
@@ -13,50 +13,50 @@
 
   <div class="field">
     <%= f.label :book_id %>
-    <%= f.text_field :book_id %>
+    <%= f.text_field :book_id, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
+    <%= f.text_field :user_id, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :date_borrowed %>
-    <%= f.datetime_select :date_borrowed %>
+    <%= f.datetime_select :date_borrowed, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :due_date %>
-    <%= f.datetime_select :due_date %>
+    <%= f.datetime_select :due_date, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :date_returned %>
-    <%= f.datetime_select :date_returned %>
+    <%= f.datetime_select :date_returned, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :renewed_count %>
-    <%= f.number_field :renewed_count %>
+    <%= f.number_field :renewed_count, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :overdue %>
-    <%= f.check_box :overdue %>
+    <%= f.check_box :overdue, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :fine %>
-    <%= f.text_field :fine %>
+    <%= f.text_field :fine, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :fine_paid_date %>
-    <%= f.datetime_select :fine_paid_date %>
+    <%= f.datetime_select :fine_paid_date, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

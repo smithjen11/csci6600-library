@@ -18,6 +18,7 @@ class HoldsController < ApplicationController
 
   # GET /holds/1/edit
   def edit
+    @books = Book.all
   end
 
   # POST /holds

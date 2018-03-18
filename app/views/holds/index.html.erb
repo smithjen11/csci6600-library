@@ -19,13 +19,13 @@
   <tbody>
     <% @holds.each do |hold| %>
       <tr>
-        <td><%= hold.book %></td>
-        <td><%= hold.user %></td>
+        <td><%= hold.book_id %></td>
+        <td><%= hold.user_id %></td>
         <td><%= hold.request_date %></td>
         <td><%= hold.release_date %></td>
-        <td><%= link_to 'Show', hold %></td>
-        <td><%= link_to 'Edit', edit_hold_path(hold) %></td>
-        <td><%= link_to 'Destroy', hold, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', hold, class: 'btn btn-info' %></td>
+        <td><%= link_to 'Edit', edit_hold_path(hold), class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', hold, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
