@@ -56,8 +56,9 @@
 
     <div class="tab-pane fade pad-10" id="categories" role="tabpanel" aria-labelledby="categories-tab">
       <% @categories.each do |category| %>
-        <%= form_tag search_query_path, method: 'post' do %>
-        <button class="btn btn-primary" type="submit" name="term" value="<%= category.genre %>"><%= category.genre %></button>
+        <%= form_tag search_query_path, method: 'post', class: 'd-inline' do %>
+          <%= hidden_field_tag :type, 'genre' %>
+          <button class="btn btn-success" type="submit" name="term" value="<%= category.genre %>"><%= category.genre %></button>
         <% end %>
       <% end %>
     </div>
