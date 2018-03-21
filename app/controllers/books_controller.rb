@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_admin, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /books
   def index
@@ -70,5 +71,9 @@ class BooksController < ApplicationController
 
     def search_params
       params.permit(:term, :type)
+    end
+
+    def ensure_admin
+      redirect_to root_path unless current_user.try(:admin?)
     end
 end
