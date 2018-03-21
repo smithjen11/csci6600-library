@@ -29,9 +29,14 @@
             <th>Author last name</th>
             <th>Author first name</th>
             <th>Publish year</th>
+            <% if user_signed_in? %>
+            <th></th>
+            <% end %>
+            <% if current_user.try(:admin?) %>
             <th></th>
             <th></th>
             <th></th>
+            <% end %>
           </tr>
         </thead>
 
@@ -43,9 +48,22 @@
               <td><%= book.author_last_name %></td>
               <td><%= book.author_first_name %></td>
               <td><%= book.publish_year %></td>
+              <% if user_signed_in? %>
+              <td>
+                <%= form_for Hold.new, class: 'd-inline' do |f| %>
+                  <%= f.hidden_field :user_id, value: current_user.id %>
+                  <%= f.hidden_field :book_id, value: book.id %>
+                  <%= f.hidden_field :request_date, value: DateTime.now %>
+                  <%= f.hidden_field :release_date, value: DateTime.now+7 %>
+                  <button class="btn btn-success" type="submit">Place a Hold</button>
+                <% end %>
+              </td>
+              <% end %>
+              <% if current_user.try(:admin?) %>
               <td><%= link_to 'Show', book, class: 'btn btn-info' %></td>
               <td><%= link_to 'Edit', edit_book_path(book), class: 'btn btn-warning' %></td>
               <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
