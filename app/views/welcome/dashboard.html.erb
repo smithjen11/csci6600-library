@@ -1,0 +1,44 @@
+<%# app/views/welcome/dashboard.html.erb %>
+
+<div class="container">
+	<h2>user dashboard for <%= @user.email %></h2>
+
+	<%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' %>
+
+  <br><br>
+
+  <ul class="nav nav-tabs" id="show-books" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="current-loan" data-toggle="tab" href="#current" role="tab" aria-controls="current" aria-selected="true">Currently Borrowed</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">Borrowing History</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="holds-tab" data-toggle="tab" href="#holds" role="tab" aria-controls="holds" aria-selected="false">Current Hold Requests</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">My List</a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="current-loan-tab-content">
+    <div class="tab-pane fade show pad-10 active" id="current" role="tabpanel" aria-labelledby="current-tab">
+			<h3>Currently borrowed books</h3>
+			<%= render partial: 'layouts/book_table', locals: { books: @current_books, release_date: false } %>
+		</div>
+
+		<div class="tab-pane fade pad-10" id="history" role="tabpanel" aria-labelledby="history-tab">
+			<h3>Previously requested books</h3>
+		  <%= render partial: 'layouts/book_table', locals: { books: @previous_books, release_date: false } %>
+		</div>
+
+		<div class="tab-pane fade pad-10" id="holds" role="tabpanel" aria-labelledby="holds-tab">
+			<%= render partial: 'layouts/book_table', locals: { books: @holds, release_date: true } %>
+		</div>
+
+		<div class="tab-pane fade pad-10" id="list" role="tabpanel" aria-labelledby="list-tab">
+			<%= render partial: 'layouts/book_table', locals: { books: @list, release_date: false } %>
+		</div>
+	</div>
+</div>

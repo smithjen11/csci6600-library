@@ -3,6 +3,10 @@ class Book < ApplicationRecord
 	:publish_year, :language, :length, 
 	:material_type, :image_url, presence: true
 
+	has_many :loans
+	has_many :holds
+	has_many :user_books
+
 
 	def search(term, type)
 		if type == 'author'

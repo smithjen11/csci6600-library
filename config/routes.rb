@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   resources :loans
   resources :books
   devise_for :users
-  get 'welcome/index'
+  get 'welcome/index', to: 'welcome#index', as: 'index'
+  get 'welcome/dashboard', to: 'welcome#dashboard', as: 'dashboard'
 
   root to: 'welcome#index'
 
