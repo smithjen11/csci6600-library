@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
 	before_action :is_signed_in?, only: :dashboard
+	before_action :ensure_admin, only: :admin
+
   def index
   end
 
@@ -9,6 +11,9 @@ class WelcomeController < ApplicationController
   	@previous_books = user_history
   	@holds = user_holds
   	@list = user_list
+  end
+
+  def admin
   end
 
   private
@@ -32,5 +37,9 @@ class WelcomeController < ApplicationController
 
     def user_list
     	Book.joins(:user_books).where('user_books.user_id = ?', current_user.id)
+    end
+
+    def ensure_admin
+      redirect_to root_path unless current_user.try(:admin?)
     end
 end

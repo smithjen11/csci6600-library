@@ -1,0 +1,23 @@
+<div class="container">
+	<h2>Admin Dashboard</h2>
+
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">actions</h4>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<%= link_to 'Checkout book', new_loan_path %>
+				</li>
+				<li class="list-group-item">
+					<%= link_to 'View all holds', holds_path %>
+				</li>
+				<li class="list-group-item">
+					<%= link_to 'View all loans', loans_path %>
+				</li>
+				<li class="list-group-item">
+					<%= link_to 'Personal dashboard', dashboard_path %>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

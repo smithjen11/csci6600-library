@@ -1,5 +1,6 @@
 class HoldsController < ApplicationController
   before_action :set_hold, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_admin, only: [:edit, :update]
 
   # GET /holds
   def index
@@ -62,5 +63,9 @@ class HoldsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def hold_params
       params.require(:hold).permit(:book_id, :user_id, :request_date, :release_date)
+    end
+
+    def ensure_admin
+      redirect_to root_path unless current_user.try(:admin?)
     end
 end
