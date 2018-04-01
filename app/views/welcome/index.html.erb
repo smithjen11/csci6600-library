@@ -1,13 +1,8 @@
 <div class="container">
   <div class="jumbotron">
-    <h1 class="display-4">some cool library name</h1>
-    <p class="lead">Welcome puny mortals!</p>
+    <h1 class="display-4">library application</h1>
+    <p class="lead">Welcome!</p>
   </div>
-
-  <a href="<%= books_path %>" class="btn btn-primary">Books</a>
-  <a href="<%= new_user_session_path %>" class="btn btn-primary">Login</a>
-  <a href="<%= holds_path %>" class="btn btn-primary">Holds</a>
-  <a href="<%= loans_path %>" class="btn btn-primary">Loans</a>
 
   <div class="input-group pad-10">
   	<%= form_tag search_query_path, method: 'post', class: 'form-inline' do %>

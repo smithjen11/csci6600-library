@@ -5,38 +5,14 @@
 
 	<%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' %>
 
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">My Info</h4>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          Currently checked out
-          <span class="badge badge-primary badge-pill"><%= @current_books.count %></span>
-        </li>
-        <li class="list-group-item">
-          Overdue
-          <span class="badge badge-danger badge-pill">0</span>
-        </li>
-        <li class="list-group-item">
-          Current holds
-          <span class="badge badge-primary badge-pill">0</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">You owe:</h4>
-      $0.00
-    </div>
-  </div>
-
   <br><br>
 
   <ul class="nav nav-tabs" id="show-books" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="current-loan" data-toggle="tab" href="#current" role="tab" aria-controls="current" aria-selected="true">Currently Borrowed</a>
+      <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="current-loan-tab" data-toggle="tab" href="#current" role="tab" aria-controls="current" aria-selected="true">Currently Borrowed</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">Borrowing History</a>
@@ -50,21 +26,53 @@
   </ul>
 
   <div class="tab-content" id="current-loan-tab-content">
-    <div class="tab-pane fade show pad-10 active" id="current" role="tabpanel" aria-labelledby="current-tab">
+    <div class="tab-pane fade show pad-10 active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+      <h3>Account Overview</h3>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">My Info</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Currently checked out
+              <span class="badge badge-primary badge-pill"><%= @current_books.count %></span>
+            </li>
+            <li class="list-group-item">
+              Overdue
+              <span class="badge badge-danger badge-pill"><%= @overdue.count %></span>
+            </li>
+            <li class="list-group-item">
+              Current holds
+              <span class="badge badge-primary badge-pill"><%= @holds.as_json.count || 0 %></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">You owe:</h4>
+          $0.00
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade show pad-10" id="current" role="tabpanel" aria-labelledby="current-loan-tab">
 			<h3>Currently borrowed books</h3>
 			<%= render partial: 'layouts/book_table', locals: { books: @current_books, release_date: false } %>
 		</div>
 
 		<div class="tab-pane fade pad-10" id="history" role="tabpanel" aria-labelledby="history-tab">
-			<h3>Previously requested books</h3>
+			<h3>Previously borrowed books</h3>
 		  <%= render partial: 'layouts/book_table', locals: { books: @previous_books, release_date: false } %>
 		</div>
 
 		<div class="tab-pane fade pad-10" id="holds" role="tabpanel" aria-labelledby="holds-tab">
-			<%= render partial: 'layouts/book_table', locals: { books: @holds, release_date: true } %>
+			<h3>Requested books</h3>
+      <%= render partial: 'layouts/book_table', locals: { books: @holds, release_date: true } %>
 		</div>
 
 		<div class="tab-pane fade pad-10" id="list" role="tabpanel" aria-labelledby="list-tab">
+      <h3>My books</h3>
 			<%= render partial: 'layouts/book_table', locals: { books: @list, release_date: false } %>
 		</div>
 	</div>
