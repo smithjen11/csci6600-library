@@ -23,15 +23,17 @@ class WelcomeController < ApplicationController
     end
 
     def user_loans
-      Book.joins(:loans).where('loans.user_id = ? and loans.due_date > ? and loans.date_returned is null', current_user.id, DateTime.now)
+      Book.joins(:loans).where('loans.user_id = ? and loans.date_returned is null', current_user.id)
     end
 
     def user_history
-      Book.joins(:loans).where('loans.user_id = ? and loans.date_returned is not null', current_user.id)
+      Book.select('books.image_url, books.title, books.author_last_name, books.author_first_name, books.publish_year, loans.date_borrowed, loans.date_returned')
+          .joins(:loans)
+          .where('loans.user_id = ? and loans.date_returned is not null', current_user.id)
     end
 
     def user_holds
-      Book.select('books.*, holds.release_date')
+      Book.select('books.id, books.image_url, books.title, books.author_last_name, books.author_first_name, books.publish_year, holds.id as hold_id, holds.release_date')
           .joins(:holds)
           .where('holds.user_id = ? and holds.release_date > ?', current_user.id, DateTime.now)
     end
