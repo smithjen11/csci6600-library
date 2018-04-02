@@ -28,7 +28,7 @@ class HoldsController < ApplicationController
 
     respond_to do |format|
       if @hold.save
-        format.html { redirect_to @hold, notice: 'Hold was successfully created.' }
+        format.html { redirect_to :back, notice: 'Hold was successfully created.' }
       else
         format.html { render :new }
       end
@@ -50,7 +50,7 @@ class HoldsController < ApplicationController
   def destroy
     @hold.destroy
     respond_to do |format|
-      format.html { redirect_to holds_url, notice: 'Hold was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Hold was successfully destroyed.' }
     end
   end
 
