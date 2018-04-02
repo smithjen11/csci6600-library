@@ -58,17 +58,17 @@
 
     <div class="tab-pane fade show pad-10" id="current" role="tabpanel" aria-labelledby="current-loan-tab">
 			<h3>Currently borrowed books</h3>
-			<%= render partial: 'layouts/book_table', locals: { books: @current_books, release_date: false } %>
+			<%= render partial: 'layouts/current_loans_table', locals: { books: @current_books } %>
 		</div>
 
 		<div class="tab-pane fade pad-10" id="history" role="tabpanel" aria-labelledby="history-tab">
 			<h3>Previously borrowed books</h3>
-		  <%= render partial: 'layouts/book_table', locals: { books: @previous_books, release_date: false } %>
+		  <%= render partial: 'layouts/loan_history_table', locals: { books: @previous_books } %>
 		</div>
 
 		<div class="tab-pane fade pad-10" id="holds" role="tabpanel" aria-labelledby="holds-tab">
 			<h3>Requested books</h3>
-      <%= render partial: 'layouts/book_table', locals: { books: @holds, release_date: true } %>
+      <%= render partial: 'layouts/current_holds_table', locals: { books: @holds } %>
 		</div>
 
 		<div class="tab-pane fade pad-10" id="list" role="tabpanel" aria-labelledby="list-tab">
