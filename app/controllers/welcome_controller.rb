@@ -23,7 +23,9 @@ class WelcomeController < ApplicationController
     end
 
     def user_loans
-      Book.joins(:loans).where('loans.user_id = ? and loans.date_returned is null', current_user.id)
+      Book.select('books.id, books.author_last_name, books.author_first_name, books.publish_year, books.image_url, loans.due_date')
+          .joins(:loans)
+          .where('loans.user_id = ? and loans.date_returned is null', current_user.id)
     end
 
     def user_history
@@ -49,7 +51,9 @@ class WelcomeController < ApplicationController
     end
 
     def overdue
-      Book.joins(:loans).where('loans.user_id = ? and loans.due_date <= ? and loans.date_returned is null', current_user.id, DateTime.now)
+      Book.select('books.id')
+          .joins(:loans)
+          .where('loans.user_id = ? and loans.due_date <= ? and loans.date_returned is null', current_user.id, DateTime.now)
     end
 
     def ensure_admin
