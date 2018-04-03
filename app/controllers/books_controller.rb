@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = Book.all
+    @books = book_info
     @categories = Book.select(:genre).group(:genre)
   end
 
@@ -75,5 +75,13 @@ class BooksController < ApplicationController
 
     def ensure_admin
       redirect_to root_path unless current_user.try(:admin?)
+    end
+
+    def book_info
+      Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
+          'books.image_url, holds.release_date, loans.due_date')
+          .joins('left outer join holds on holds.book_id = books.id')
+          .joins('left outer join loans on loans.book_id = books.id')
+          .where('holds.release_date > ? or loans.date_returned is null', Time.now)
     end
 end
