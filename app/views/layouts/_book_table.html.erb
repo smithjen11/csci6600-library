@@ -18,7 +18,7 @@
         <td><%= book.author_last_name %>, <%= book.author_first_name %></td>
         <td><%= book.publish_year %></td>
         <% if !book.due_date.blank? %>
-        <td><span class="badge badge-danger badge-pill">Due <%= book.due_date %></span></td>
+        <td><span class="badge badge-danger badge-pill">Due <%= Time.parse(book.due_date).strftime("%m-%d-%Y") %></span></td>
         <% elsif !book.release_date.blank? %>
         <td><span class="badge badge-warning badge-pill">Reserved</span></td>
         <% else %>
@@ -32,6 +32,8 @@
             <div class="dropdown-menu" aria-labelledby="book-actions-button<%= book.id %>">
               <%= link_to 'Show', book, class: 'dropdown-item' %>
               <% if user_signed_in? && book.due_date.blank? && book.release_date.blank? %>
+              <%= link_to 'Checkout', loans_path(loan: {user_id: current_user.id, book_id: book.id, date_borrowed: DateTime.now, due_date: DateTime.now+14}), method: :post, class: 'dropdown-item' %>
+              <% elsif user_signed_in? && !book.due_date.blank? && book.release_date.blank? && current_user.id != book.user_id %>
               <%= link_to 'Request hold', holds_path(hold: {user_id: current_user.id, book_id: book.id, request_date: DateTime.now, release_date: DateTime.now+7}), method: :post, class: 'dropdown-item' %>
               <% end %>
               <% if current_user.try(:admin?) %>

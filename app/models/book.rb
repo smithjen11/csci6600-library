@@ -30,14 +30,14 @@ class Book < ApplicationRecord
 	   if term[0].blank? || term[1].blank?
 	     term = term.reject { |t| t.blank? }
 	     Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
-          'books.image_url, holds.release_date, loans.due_date')
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .where('holds.release_date > ? or loans.date_returned is null', Time.now)
           .where('books.author_last_name like ? or books.author_first_name like ?', '%'+term[0].to_s+'%', '%'+term[0].to_s+'%')
 	   else
 	   	 Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
-           'books.image_url, holds.release_date, loans.due_date')
+           'books.image_url, holds.release_date, loans.due_date, loans.user_id')
            .joins('left outer join holds on holds.book_id = books.id')
            .joins('left outer join loans on loans.book_id = books.id')
            .where('holds.release_date > ? or loans.date_returned is null', Time.now)
@@ -49,7 +49,7 @@ class Book < ApplicationRecord
 
 	 def title_search(term)
 	 	 Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
-          'books.image_url, holds.release_date, loans.due_date')
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .where('holds.release_date > ? or loans.date_returned is null', Time.now)
@@ -58,7 +58,7 @@ class Book < ApplicationRecord
 
 	 def genre_search(term)
 	 	 Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
-          'books.image_url, holds.release_date, loans.due_date')
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .where('holds.release_date > ? or loans.date_returned is null', Time.now)

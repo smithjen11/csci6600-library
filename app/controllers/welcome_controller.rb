@@ -23,7 +23,7 @@ class WelcomeController < ApplicationController
     end
 
     def user_loans
-      Book.select('books.id, books.author_last_name, books.author_first_name, books.publish_year, books.image_url, loans.due_date')
+      Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, books.image_url, loans.date_borrowed, loans.due_date')
           .joins(:loans)
           .where('loans.user_id = ? and loans.date_returned is null', current_user.id)
     end
@@ -46,7 +46,7 @@ class WelcomeController < ApplicationController
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .joins(:user_books)
-          .where('holds.release_date > ? or loans.date_returned is null', Time.now)
+          .where('holds.release_date > ? or loans.date_returned is null', DateTime.now)
           .where('user_books.user_id = ?', current_user.id)
     end
 

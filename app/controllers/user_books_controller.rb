@@ -20,7 +20,7 @@ class UserBooksController < ApplicationController
 
     respond_to do |format|
       if @user_book.save
-        format.html { redirect_to @user_book, notice: 'User book was successfully created.' }
+        format.html { redirect_to :back, notice: 'User book was successfully created.' }
       else
         format.html { render :new }
       end
@@ -30,7 +30,7 @@ class UserBooksController < ApplicationController
   def update
     respond_to do |format|
       if @user_book.update(user_book_params)
-        format.html { redirect_to @user_book, notice: 'User book was successfully updated.' }
+        format.html { redirect_to :back, notice: 'User book was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -40,7 +40,7 @@ class UserBooksController < ApplicationController
   def destroy
     @user_book.destroy
     respond_to do |format|
-      format.html { redirect_to user_books_url, notice: 'User book was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'User book was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

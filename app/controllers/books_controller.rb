@@ -79,9 +79,10 @@ class BooksController < ApplicationController
 
     def book_info
       Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
-          'books.image_url, holds.release_date, loans.due_date')
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
-          .where('holds.release_date > ? or loans.date_returned is null', Time.now)
+          .where('holds.release_date > ? or loans.date_returned is null', DateTime.now)
+          .group('books.id')
     end
 end
