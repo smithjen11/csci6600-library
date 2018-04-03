@@ -39,7 +39,13 @@ class WelcomeController < ApplicationController
     end
 
     def user_list
-      Book.joins(:user_books).where('user_books.user_id = ?', current_user.id)
+      Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
+          'books.image_url, holds.release_date, loans.due_date')
+          .joins('left outer join holds on holds.book_id = books.id')
+          .joins('left outer join loans on loans.book_id = books.id')
+          .joins(:user_books)
+          .where('holds.release_date > ? or loans.date_returned is null', Time.now)
+          .where('user_books.user_id = ?', current_user.id)
     end
 
     def overdue

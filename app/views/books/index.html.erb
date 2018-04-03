@@ -21,53 +21,7 @@
 
   <div class="tab-content" id="show-books-tab-content">
     <div class="tab-pane fade show pad-10 active" id="all" role="tabpanel" aria-labelledby="all-books-tab">
-      <table class="table table-striped table-condensed datatable">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Publish year</th>
-            <th>Availability</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @books.each do |book| %>
-            <tr>
-              <td><%= image_tag book.image_url, size: '30' %></td>
-              <td><%= book.title %></td>
-              <td><%= book.author_last_name %>, <%= book.author_first_name %></td>
-              <td><%= book.publish_year %></td>
-              <% if !book.due_date.blank? %>
-              <td><span class="badge badge-danger badge-pill">Due <%= book.due_date %></span></td>
-              <% elsif !book.release_date.blank? %>
-              <td><span class="badge badge-warning badge-pill">Reserved</span></td>
-              <% else %>
-              <td><span class="badge badge-success badge-pill">Available</span></td>
-              <% end %>
-              <td>
-                <div class="dropdown">
-                  <button class="btn btn-info dropdown-toggle" type="button" id="book-actions-button<%= book.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Actions
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="book-actions-button<%= book.id %>">
-                    <%= link_to 'Show', book, class: 'dropdown-item' %>
-                    <% if user_signed_in? && book.due_date.blank? && book.release_date.blank? %>
-                    <%= link_to 'Place a hold', holds_path(hold: {user_id: current_user.id, book_id: book.id, request_date: DateTime.now, release_date: DateTime.now+7}), method: :post, class: 'dropdown-item' %>
-                    <% end %>
-                    <% if current_user.try(:admin?) %>
-                    <%= link_to 'Edit', edit_book_path(book), class: 'dropdown-item' %>
-                    <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item' %>
-                    <% end %>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= render partial: 'layouts/book_table', locals: { books: @books } %>
     </div>
 
     <div class="tab-pane fade pad-10" id="featured" role="tabpanel" aria-labelledby="featured-tab">Coming Soon!</div>
