@@ -61,7 +61,9 @@
   <% if current_user.try(:admin?) %>
   <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-primary' %> |
   <% end %>
+  <% if user_signed_in? %>
   <%= link_to 'Request hold', holds_path(hold: {user_id: current_user.id, book_id: @book.id, request_date: DateTime.now, release_date: DateTime.now+7}), method: :post, class: 'btn btn-primary' %>
+  <% end %>
   <%= link_to 'Back', books_path, class: 'btn btn-primary' %>
 
 </div>
