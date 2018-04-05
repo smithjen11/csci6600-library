@@ -3,8 +3,7 @@
   <tr>
     <th></th>
     <th>Title</th>
-    <th>Author last name</th>
-    <th>Author first name</th>
+    <th>Author</th>
     <th>Publish year</th>
     <th>Checked out</th>
     <th>Returned</th>
@@ -17,8 +16,7 @@
     <tr>
       <td><%= image_tag book.image_url, size: '30' %></td>
       <td><%= book.title %></td>
-      <td><%= book.author_last_name %></td>
-      <td><%= book.author_first_name %></td>
+      <td><%= book.author %></td>
       <td><%= book.publish_year %></td>
       <td><%= book.due_date %></td>
       <td><%= book.returned_date %></td>
