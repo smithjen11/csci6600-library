@@ -34,7 +34,7 @@
               <% if user_signed_in? && book.due_date.blank? && book.release_date.blank? %>
               <%= link_to 'Checkout', loans_path(loan: {user_id: current_user.id, book_id: book.id, date_borrowed: DateTime.now, due_date: DateTime.now+14}), method: :post, class: 'dropdown-item' %>
               <% elsif user_signed_in? && !book.due_date.blank? && book.release_date.blank? && current_user.id != book.user_id %>
-              <%= link_to 'Request hold', holds_path(hold: {user_id: current_user.id, book_id: book.id, request_date: DateTime.now, release_date: DateTime.now+7}), method: :post, class: 'dropdown-item' %>
+              <%= link_to 'Request hold', holds_path(hold: {user_id: current_user.id, book_id: book.id, request_date: DateTime.now, release_date: Date.parse(book.due_date)+7}), method: :post, class: 'dropdown-item' %>
               <% end %>
               <% if current_user.try(:admin?) %>
               <%= link_to 'Edit', edit_book_path(book), class: 'dropdown-item' %>
