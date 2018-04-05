@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405015927) do
+ActiveRecord::Schema.define(version: 20180405023401) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180405015927) do
     t.index ["genre"], name: "index_books_on_genre"
     t.index ["publish_year"], name: "index_books_on_publish_year"
     t.index ["title"], name: "index_books_on_title", unique: true
+    t.index [nil], name: "index_books_on_author_first_nam"
   end
 
   create_table "holds", force: :cascade do |t|
@@ -73,20 +74,20 @@ ActiveRecord::Schema.define(version: 20180405015927) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",       null: false
-    t.string   "encrypted_password",     default: "",       null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,        null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.boolean  "admin",                  default: false
-    t.string   "account_status",         default: "active"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "account_status",         default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
