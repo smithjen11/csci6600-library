@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320003738) do
+ActiveRecord::Schema.define(version: 20180405015927) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 20180320003738) do
     t.string   "image_url"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["author_last_name"], name: "index_books_on_author_last_name"
+    t.index ["genre"], name: "index_books_on_genre"
+    t.index ["publish_year"], name: "index_books_on_publish_year"
+    t.index ["title"], name: "index_books_on_title", unique: true
+    t.index [nil], name: "index_books_on_author_first_nam"
   end
 
   create_table "holds", force: :cascade do |t|
