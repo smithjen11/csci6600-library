@@ -66,7 +66,7 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :author_last_name, :author_first_name, :isbn, :publish_year, :genre, :reading_level, :subject, :language, :length, :material_type, :series, :series_number, :image_url)
+      params.require(:book).permit(:title, :author, :isbn, :publish_year, :genre, :reading_level, :subject, :language, :length, :material_type, :series, :series_number, :image_url)
     end
 
     def search_params
@@ -78,7 +78,7 @@ class BooksController < ApplicationController
     end
 
     def book_info
-      Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
+      Book.select('books.id, books.title, books.author, books.publish_year, '+
           'books.image_url, holds.release_date, loans.due_date, loans.user_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
