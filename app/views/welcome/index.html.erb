@@ -6,7 +6,7 @@
 
   <div class="input-group pad-10">
   	<%= form_tag search_query_path, method: 'post', class: 'form-inline' do %>
-  	<%= text_field_tag :term, 'Search term' %>
+  	<%= text_field_tag :term, nil, class: 'form-control', placeholder: 'Search term' %>
   	<div class="input-group-append">
   		<%= select_tag :type, options_for_select([['Title', 'title'], ['Author', 'author']]), class: 'btn dropdown-toggle' %>
   	</div>

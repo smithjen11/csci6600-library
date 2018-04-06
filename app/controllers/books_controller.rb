@@ -6,6 +6,9 @@ class BooksController < ApplicationController
   def index
     @books = book_info
     @categories = Book.select(:genre).group(:genre)
+    if user_signed_in?
+      @list = user_list
+    end
   end
 
   # GET /books/1
@@ -56,6 +59,9 @@ class BooksController < ApplicationController
   def search
     @books = Book.new.search(search_params[:term], search_params[:type])
     @search_term = search_params[:term]
+    if user_signed_in?
+      @list = user_list
+    end
   end
 
   private
@@ -85,5 +91,16 @@ class BooksController < ApplicationController
           .joins('left outer join loans on loans.book_id = books.id')
           .where('holds.release_date > ? or loans.date_returned is null', DateTime.now)
           .group('books.id')
+    end
+
+    def user_list
+      Book.select('books.id, books.id as book_id, books.title, books.author, books.publish_year, '+
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id, '+
+          'holds.user_id as holds_user_id, loans.id as loan_id, user_books.id as list_id')
+          .joins('left outer join holds on holds.book_id = books.id')
+          .joins('left outer join loans on loans.book_id = books.id')
+          .joins(:user_books)
+          .where('holds.release_date > ? or loans.date_returned is null', DateTime.now)
+          .where('user_books.user_id = ?', current_user.id)
     end
 end

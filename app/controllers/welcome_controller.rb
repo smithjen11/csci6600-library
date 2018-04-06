@@ -49,9 +49,9 @@ class WelcomeController < ApplicationController
     end
 
     def user_list
-      Book.select('books.id, books.title, books.author, books.publish_year, '+
+      Book.select('books.id, books.id as book_id, books.title, books.author, books.publish_year, '+
           'books.image_url, holds.release_date, loans.due_date, loans.user_id, '+
-          'holds.user_id as holds_user_id, loans.id as loan_id')
+          'holds.user_id as holds_user_id, loans.id as loan_id, user_books.id as list_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .joins(:user_books)
