@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users, except: [:destroy, :show, :new, :create]
   resources :user_books
   get 'books/search', to: 'books#search', as: 'search'
   post 'books/search', to: 'books#search', as: 'search_query'
