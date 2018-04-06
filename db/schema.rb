@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(version: 20180406011728) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.boolean  "featured",     default: false
-    t.index ["author_first_name"], name: "index_books_on_author_first_name"
-    t.index ["author_last_name"], name: "index_books_on_author_last_name"
+    t.index ["author"], name: "index_books_on_author"
     t.index ["genre"], name: "index_books_on_genre"
     t.index ["publish_year"], name: "index_books_on_publish_year"
     t.index ["title"], name: "index_books_on_title", unique: true

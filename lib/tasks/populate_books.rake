@@ -3,7 +3,7 @@ require 'json'
 
 desc 'Popluating books table with data from openlibrary.org'
 task :populate_books => :environment do
-	url = 'http://openlibrary.org/subjects/overdrive.json?limit=2'
+	url = 'http://openlibrary.org/subjects/overdrive.json?limit=150'
 	uri = URI(url)
 	response = Net::HTTP.get(uri)
 	data = JSON.parse(response)
