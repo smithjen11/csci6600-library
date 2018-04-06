@@ -23,26 +23,32 @@ class WelcomeController < ApplicationController
     end
 
     def user_loans
-      Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, books.image_url, loans.date_borrowed, loans.due_date')
+      Book.select('books.id, books.title, books.author, books.publish_year, '+
+                  'books.image_url, loans.date_borrowed, loans.due_date')
           .joins(:loans)
           .where('loans.user_id = ? and loans.date_returned is null', current_user.id)
     end
 
     def user_history
-      Book.select('books.image_url, books.title, books.author_last_name, books.author_first_name, books.publish_year, loans.date_borrowed, loans.date_returned')
+      Book.select('books.image_url, books.title, books.author, books.publish_year, '+
+                  'loans.date_borrowed, loans.date_returned, loans.user_id as loan_user_id')
           .joins(:loans)
           .where('loans.user_id = ? and loans.date_returned is not null', current_user.id)
     end
 
     def user_holds
-      Book.select('books.id, books.image_url, books.title, books.author_last_name, books.author_first_name, books.publish_year, holds.id as hold_id, holds.release_date')
-          .joins(:holds)
+      Book.select('books.id, books.image_url, books.title, books.author, '+
+                  'books.publish_year, holds.id as hold_id, holds.release_date, '+
+                  'loans.user_id as loan_user_id, holds.user_id as hold_user_id')
+          .joins(:holds, :loans)
           .where('holds.user_id = ? and holds.release_date > ?', current_user.id, DateTime.now)
+          .where('loans.book_id = holds.book_id')
     end
 
     def user_list
-      Book.select('books.id, books.title, books.author_last_name, books.author_first_name, books.publish_year, '+
-          'books.image_url, holds.release_date, loans.due_date')
+      Book.select('books.id, books.title, books.author, books.publish_year, '+
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id, '+
+          'holds.user_id as holds_user_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .joins(:user_books)

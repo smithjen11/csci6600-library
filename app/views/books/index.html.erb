@@ -26,7 +26,7 @@
       <% @categories.each do |category| %>
         <%= form_tag search_query_path, method: 'post', class: 'd-inline' do %>
           <%= hidden_field_tag :type, 'genre' %>
-          <button class="btn btn-success" type="submit" name="term" value="<%= category.genre %>"><%= category.genre %></button>
+          <button class="btn btn-success margin-10" type="submit" name="term" value="<%= category.genre %>"><%= category.genre %></button>
         <% end %>
       <% end %>
     </div>
