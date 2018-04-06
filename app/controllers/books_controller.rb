@@ -80,7 +80,7 @@ class BooksController < ApplicationController
     def book_info
       Book.select('books.id, books.title, books.author, books.publish_year, '+
           'books.image_url, holds.release_date, loans.due_date, loans.user_id, '+
-          'holds.user_id as hold_user_id')
+          'holds.user_id as hold_user_id, loans.id as loan_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
           .where('holds.release_date > ? or loans.date_returned is null', DateTime.now)

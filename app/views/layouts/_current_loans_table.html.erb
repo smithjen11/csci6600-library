@@ -28,7 +28,13 @@
         <span class="badge badge-success badge-pill">Due in <%= distance_of_time_in_words(Time.now, Time.parse(book.due_date)) %></span>
         <% end %>
       </td>
-      <td><%= link_to 'Show', book, class: 'btn btn-info' %></td>
+      <td>
+        <% if DateTime.parse(book.due_date) < DateTime.now %>
+        <%= link_to 'Return book', loan_path(id: book.loan_id, loan: { date_returned: DateTime.now, fine_paid_date: DateTime.now, fine: (DateTime.now - DateTime.parse(book.due_date)).to_i*0.25 }), method: :patch, class: 'btn btn-info' %>
+        <% else %>
+        <%= link_to 'Return book', loan_path(id: book.loan_id, loan: { date_returned: DateTime.now }), method: :patch, class: 'btn btn-info' %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </tbody>

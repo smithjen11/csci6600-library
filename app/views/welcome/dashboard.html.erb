@@ -1,6 +1,8 @@
 <%# app/views/welcome/dashboard.html.erb %>
 
 <div class="container">
+  <p id="notice"><%= notice %></p>
+  
 	<h2>user dashboard for <%= @user.email %></h2>
 
 	<%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' %>
@@ -51,7 +53,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">You owe:</h4>
-          $0.00
+          <%= format("$%.2f",@fine) %>
         </div>
       </div>
     </div>
