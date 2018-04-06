@@ -1,15 +1,33 @@
 <div class="container">
   <div class="jumbotron">
     <h1 class="display-4">Library on Rails</h1>
-    <p class="lead">Welcome!</p>
+    <p class="lead">Welcome!  Search the catalog:</p>
+
+	  <div class="input-group pad-10">
+	  	<%= form_tag search_query_path, method: 'post', class: 'form-inline' do %>
+	  	<%= text_field_tag :term, nil, class: 'form-control', placeholder: 'Search term' %>
+	  	<div class="input-group-append">
+	  		<%= select_tag :type, options_for_select([['Title', 'title'], ['Author', 'author']]), class: 'btn dropdown-toggle' %>
+	  	</div>
+	  	<% end %>
+	  </div>
   </div>
 
-  <div class="input-group pad-10">
-  	<%= form_tag search_query_path, method: 'post', class: 'form-inline' do %>
-  	<%= text_field_tag :term, nil, class: 'form-control', placeholder: 'Search term' %>
-  	<div class="input-group-append">
-  		<%= select_tag :type, options_for_select([['Title', 'title'], ['Author', 'author']]), class: 'btn dropdown-toggle' %>
-  	</div>
-  	<% end %>
-  </div>
+  <h3>Featured Books</h3>
+
+  <div class="card-columns">
+  	<% @featured.each do |book| %>
+	  <div class="card">
+	  	<a href="<%= book_path(book) %>">
+        <%= image_tag book.image_url, size: '250x350', class: 'image-center' %>	  		
+	  	</a>
+	    <div class="card-body">
+	    	<a href="<%= book_path(book) %>">
+	        <h5 class="card-title"><%= book.title %></h5>
+	      </a>
+	      <p class="card-text"><%= book.author %></p>
+	    </div>
+	  </div>
+	  <% end %>
+	</div>
 </div>

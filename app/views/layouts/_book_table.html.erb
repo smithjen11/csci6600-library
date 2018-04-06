@@ -39,11 +39,16 @@
               <%= link_to 'Return book', loan_path(id: book.loan_id, loan: { date_returned: DateTime.now }), method: :patch, class: 'dropdown-item' %>
               <% end %>
               <% if user_signed_in? && (@list.detect { |l| l.book_id == book.id }) %>
-              <%= link_to 'Remove from favorites', user_book_path(id: (@list.detect { |l| l.book_id == book.id }).id), method: :delete, class: 'dropdown-item' %>
+              <%= link_to 'Remove from favorites', user_book_path(id: (@list.detect { |l| l.book_id == book.id }).list_id), method: :delete, class: 'dropdown-item' %>
               <% elsif user_signed_in? && !(@list.detect { |l| l.book_id == book.id }) %>
               <%= link_to 'Add to favorites', user_books_path(user_book: { user_id: current_user.id, book_id: book.id }), method: :post, class: 'dropdown-item' %>
               <% end %>
               <% if current_user.try(:admin?) %>
+              <% if book.featured %>
+              <%= link_to 'Remove from featured', book_path(id: book.id, book: { featured: false }), method: :patch, class: 'dropdown-item' %>
+              <% else %>
+              <%= link_to 'Make featured', book_path(id: book.id, book: { featured: true }), method: :patch, class: 'dropdown-item' %>
+              <% end %>
               <%= link_to 'Edit', edit_book_path(book), class: 'dropdown-item' %>
               <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item' %>
               <% end %>

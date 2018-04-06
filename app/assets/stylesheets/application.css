@@ -32,3 +32,8 @@
 .margin-10 {
 	margin: 10px;
 }
+
+.image-center {
+	display: block;
+	margin: auto;
+}

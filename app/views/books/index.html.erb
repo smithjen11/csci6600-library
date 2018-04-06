@@ -20,7 +20,9 @@
       <%= render partial: 'layouts/book_table', locals: { books: @books } %>
     </div>
 
-    <div class="tab-pane fade pad-10" id="featured" role="tabpanel" aria-labelledby="featured-tab">Coming Soon!</div>
+    <div class="tab-pane fade pad-10" id="featured" role="tabpanel" aria-labelledby="featured-tab">
+      <%= render partial: 'layouts/book_table', locals: { books: @featured } %>
+    </div>
 
     <div class="tab-pane fade pad-10" id="categories" role="tabpanel" aria-labelledby="categories-tab">
       <% @categories.each do |category| %>

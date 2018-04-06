@@ -3,6 +3,7 @@ class WelcomeController < ApplicationController
   before_action :ensure_admin, only: :admin
 
   def index
+    @featured = featured_books
   end
 
   def dashboard
@@ -24,7 +25,7 @@ class WelcomeController < ApplicationController
     end
 
     def user_loans
-      Book.select('books.id, books.title, books.author, books.publish_year, '+
+      Book.select('books.id, books.title, books.author, books.publish_year, books.featured, '+
                   'books.image_url, loans.date_borrowed, loans.due_date, loans.id as loan_id')
           .joins(:loans)
           .where('loans.user_id = ? and loans.date_returned is null', current_user.id)
@@ -33,7 +34,7 @@ class WelcomeController < ApplicationController
     def user_history
       Book.select('books.id, books.image_url, books.title, books.author, books.publish_year, '+
                   'loans.date_borrowed, loans.date_returned, loans.user_id as loan_user_id, '+
-                  'loans.id as loan_id')
+                  'loans.id as loan_id, books.featured')
           .joins(:loans)
           .where('loans.user_id = ? and loans.date_returned is not null', current_user.id)
     end
@@ -42,7 +43,7 @@ class WelcomeController < ApplicationController
       Book.select('books.id, books.image_url, books.title, books.author, '+
                   'books.publish_year, holds.id as hold_id, holds.release_date, '+
                   'loans.user_id as loan_user_id, holds.user_id as hold_user_id, '+
-                  'loans.id as loan_id')
+                  'loans.id as loan_id, books.featured')
           .joins(:holds, :loans)
           .where('holds.user_id = ? and holds.release_date > ?', current_user.id, DateTime.now)
           .where('loans.book_id = holds.book_id')
@@ -50,7 +51,7 @@ class WelcomeController < ApplicationController
 
     def user_list
       Book.select('books.id, books.id as book_id, books.title, books.author, books.publish_year, '+
-          'books.image_url, holds.release_date, loans.due_date, loans.user_id, '+
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id, books.featured, '+
           'holds.user_id as holds_user_id, loans.id as loan_id, user_books.id as list_id')
           .joins('left outer join holds on holds.book_id = books.id')
           .joins('left outer join loans on loans.book_id = books.id')
@@ -71,6 +72,18 @@ class WelcomeController < ApplicationController
         total_days += (DateTime.now - DateTime.parse(book.due_date)).to_i
       end
       total_days*0.25
+    end
+
+    def featured_books
+      Book.select('books.id, books.title, books.author, books.publish_year, '+
+          'books.image_url, holds.release_date, loans.due_date, loans.user_id, '+
+          'holds.user_id as hold_user_id, loans.id as loan_id, books.featured')
+          .joins('left outer join holds on holds.book_id = books.id')
+          .joins('left outer join loans on loans.book_id = books.id')
+          .where('holds.release_date > ? or loans.date_returned is null', DateTime.now)
+          .where('books.featured = ?', true)
+          .group('books.id')
+          .limit(8)
     end
 
     def ensure_admin
